@@ -137,6 +137,37 @@ namespace UtilityControllers
                 return BadRequest("Database connect fail!");
             }
         }
+
+        [Route("PartyPositionList")]
+        [HttpGet]
+        public IHttpActionResult GetPartyPositionList()
+        {
+            List<partyposition> result = new List<partyposition>();
+            DBConnector.DBConnector conn = new DBConnector.DBConnector();
+            string SQLString;
+            if (conn.OpenConnection())
+            {
+                MySqlCommand qExe = new MySqlCommand();
+                qExe.Connection = conn.connection;
+                SQLString = @"select positionrunno, positionno, positionname from partyposition
+                              order by positionno";
+                qExe.CommandText = SQLString;
+                MySqlDataReader dataReader = qExe.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    partyposition detail = new partyposition();
+                    detail.positionrunno = int.Parse(dataReader["positionrunno"].ToString());
+                    detail.positionno = int.Parse(dataReader["positionno"].ToString());
+                    detail.positionname = dataReader["positionname"].ToString();
+                    result.Add(detail);
+                }
+                return Json(result);
+            }
+            else
+            {
+                return BadRequest("Database connect fail!");
+            }
+        }
         public string ThaiBaht(string txt)
         {
             string bahtTxt, n, bahtTH = "";

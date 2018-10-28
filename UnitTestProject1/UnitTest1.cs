@@ -26,5 +26,13 @@ namespace UnitTestProject1
             string result = service.ThaiBaht("514.75");
             Assert.IsTrue(result != "");
         }
+
+        [TestMethod]
+        public void ทดสอบการดึงตำแหน่งในพรรค()
+        {
+            UtilityController service = new UtilityController();
+            var result = service.GetPartyPositionList();
+            Assert.IsNotNull(result);
+        }
     }
 }
