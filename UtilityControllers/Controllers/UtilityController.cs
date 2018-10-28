@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using MySql.Data.MySqlClient;
 using UtilityControllers.Models;
@@ -168,6 +169,112 @@ namespace UtilityControllers
                 return BadRequest("Database connect fail!");
             }
         }
+
+        [Route("ReadMasterData")]
+        [HttpGet]
+        public IHttpActionResult ReadMasterData()
+        {
+            MasterData result = new MasterData();
+            DBConnector.DBConnector conn = new DBConnector.DBConnector();
+            string SQLString;
+            if (conn.OpenConnection())
+            {
+                MySqlCommand qExe = new MySqlCommand();
+                qExe.Connection = conn.connection;
+                SQLString = @"select * from masterdata";
+                qExe.CommandText = SQLString;
+                MySqlDataReader dataReader = qExe.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    result.partyname = dataReader["partyname"].ToString();
+                    result.housenumber = dataReader["housenumber"].ToString();
+                    result.soi = dataReader["soi"].ToString();
+                    result.road = dataReader["road"].ToString();
+                    result.moo = dataReader["moo"].ToString();
+                    result.building = dataReader["building"].ToString();
+                    result.tambon = dataReader["tambon"].ToString();
+                    result.amphur = dataReader["amphur"].ToString();
+                    result.province = dataReader["province"].ToString();
+                    result.zipcode = dataReader["zipcode"].ToString();
+                    result.telephone = dataReader["telephone"].ToString();
+                }
+                return Json(result);
+            }
+            else
+            {
+                return BadRequest("Database connect fail!");
+            }
+        }
+        [Route("AddMasterData")]
+        [HttpPost]
+        public IHttpActionResult AddMasterData([FromBody] MasterData item)
+        {            
+            DBConnector.DBConnector conn = new DBConnector.DBConnector();
+            string SQLString;
+            if (conn.OpenConnection())
+            {
+                SQLString =@"INSERT INTO masterdata (partyname, housenumber, soi, road, moo, building, tambon, amphur, province, zipcode, telephone)
+                              VALUES (@partyname, @housenumber, @soi, @road, @moo, @building, @tambon, @amphur, @province, @zipcode, @telephone)";
+                MySqlCommand qExe = new MySqlCommand
+                {
+                    Connection = conn.connection,
+                    CommandText = SQLString
+                };
+                qExe.Parameters.AddWithValue("@partyname", item.partyname);
+                qExe.Parameters.AddWithValue("@housenumber", item.housenumber);
+                qExe.Parameters.AddWithValue("@soi", item.soi);
+                qExe.Parameters.AddWithValue("@road", item.road);
+                qExe.Parameters.AddWithValue("@moo", item.moo);
+                qExe.Parameters.AddWithValue("@building", item.building);
+                qExe.Parameters.AddWithValue("@tambon", item.tambon);
+                qExe.Parameters.AddWithValue("@amphur", item.amphur);
+                qExe.Parameters.AddWithValue("@province", item.province);
+                qExe.Parameters.AddWithValue("@zipcode", item.zipcode);
+                qExe.Parameters.AddWithValue("@telephone", item.telephone);                
+                qExe.ExecuteNonQuery();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Database connect fail!");
+            }
+        }
+        [Route("EditMasterData")]
+        [HttpPost]
+        public IHttpActionResult EditMasterData([FromBody] MasterData item)
+        {
+            DBConnector.DBConnector conn = new DBConnector.DBConnector();
+            string SQLString;
+            if (conn.OpenConnection())
+            {
+                SQLString = @"UPDATE masterdata SET partyname = @partyname, housenumber = @housenumber, soi = @soi,
+                              road = @road, moo = @moo, building = @building, tambon = @tambon, amphur = @amphur,
+                              province = @province, zipcode = @zipcode, telephone = @telephone";
+                MySqlCommand qExe = new MySqlCommand
+                {
+                    Connection = conn.connection,
+                    CommandText = SQLString
+                };
+                qExe.Parameters.AddWithValue("@partyname", item.partyname);
+                qExe.Parameters.AddWithValue("@housenumber", item.housenumber);
+                qExe.Parameters.AddWithValue("@soi", item.soi);
+                qExe.Parameters.AddWithValue("@road", item.road);
+                qExe.Parameters.AddWithValue("@moo", item.moo);
+                qExe.Parameters.AddWithValue("@building", item.building);
+                qExe.Parameters.AddWithValue("@tambon", item.tambon);
+                qExe.Parameters.AddWithValue("@amphur", item.amphur);
+                qExe.Parameters.AddWithValue("@province", item.province);
+                qExe.Parameters.AddWithValue("@zipcode", item.zipcode);
+                qExe.Parameters.AddWithValue("@telephone", item.telephone);
+                qExe.ExecuteNonQuery();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Database connect fail!");
+            }
+        }
+
         public string ThaiBaht(string txt)
         {
             string bahtTxt, n, bahtTH = "";

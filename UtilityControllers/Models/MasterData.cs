@@ -8,6 +8,7 @@ namespace UtilityControllers.Models
     public class MasterData
     {
         public string partyname { get; set; }
+        public string housenumber { get; set; }
         public string soi { get; set; }
         public string road { get; set; }
         public string moo { get; set; }
