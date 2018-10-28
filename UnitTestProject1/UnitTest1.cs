@@ -15,7 +15,7 @@ namespace UnitTestProject1
             UtilityController service = new UtilityController();
             var result = service.getAmphurData("กรุงเทพมหานคร");
             Assert.IsNotNull(result);
-            result = service.getTambonData("กรุงเทพมหานคร","ดินแดง");
+            result = service.getTambonData("กรุงเทพมหานคร", "ดินแดง");
             Assert.IsNotNull(result);
         }
 
@@ -34,5 +34,46 @@ namespace UnitTestProject1
             var result = service.GetPartyPositionList();
             Assert.IsNotNull(result);
         }
+
+        [TestMethod]
+        public void ทดสอบเพิ่มข้อมูลสมาชิกพรรค()
+        {
+            UtilityController service = new UtilityController();
+            MemberData item = new MemberData();
+            item.memberid = "18-0001";
+            item.membername = "นายซื่อสัตย์ สุจริต";
+            item.positionno = 2;
+            var result = service.AddMemberData(item);
+            Assert.IsNotNull(result);
+        }
+        [TestMethod]
+        public void ทดสอบแก้ไขข้อมูลสมาชิกพรรค()
+        {
+            UtilityController service = new UtilityController();
+            MemberData item = new MemberData();
+            item.memberrunno = 1;
+            item.memberid = "18-0001";
+            item.membername = "นายซื่อสัตย์ สุจริต";
+            item.positionno = 2;
+            item.housenumber = "abc";
+            item.soi = "soi soi";
+            item.moo = "5";
+            item.building = "ตึก";
+            item.road = "ถนน";
+            item.zipcode = "10400";
+            var result = service.EditMemberData(item);
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void ทดสอบลบข้อมูล()
+        {
+            UtilityController service = new UtilityController();
+            MemberData item = new MemberData();
+            item.memberrunno = 2;
+            var result = service.DeleteMemberData(item);
+            Assert.IsNotNull(result);
+        }
+
     }
 }

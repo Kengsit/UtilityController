@@ -275,6 +275,110 @@ namespace UtilityControllers
             }
         }
 
+        [Route("AddMemberData")]
+        [HttpPost]
+        public IHttpActionResult AddMemberData([FromBody] MemberData item)
+        {
+            DBConnector.DBConnector conn = new DBConnector.DBConnector();
+            string SQLString;
+            if (conn.OpenConnection())
+            {
+                SQLString = @"INSERT INTO memberdata (memberid, membername, positionno,
+                              housenumber, soi, road, moo, building, tambon, amphur, province, zipcode, telephone)
+                              VALUES (@memberid, @membername, @positionno, @housenumber, @soi,
+                              @road, @moo, @building, @tambon, @amphur, @province, @zipcode, @telephone)";
+                MySqlCommand qExe = new MySqlCommand
+                {
+                    Connection = conn.connection,
+                    CommandText = SQLString
+                };
+                qExe.Parameters.AddWithValue("@memberid", item.memberid);
+                qExe.Parameters.AddWithValue("@membername", item.membername);
+                qExe.Parameters.AddWithValue("@positionno", item.positionno);
+                qExe.Parameters.AddWithValue("@housenumber", item.housenumber);
+                qExe.Parameters.AddWithValue("@soi", item.soi);
+                qExe.Parameters.AddWithValue("@road", item.road);
+                qExe.Parameters.AddWithValue("@moo", item.moo);
+                qExe.Parameters.AddWithValue("@building", item.building);
+                qExe.Parameters.AddWithValue("@tambon", item.tambon);
+                qExe.Parameters.AddWithValue("@amphur", item.amphur);
+                qExe.Parameters.AddWithValue("@province", item.province);
+                qExe.Parameters.AddWithValue("@zipcode", item.zipcode);
+                qExe.Parameters.AddWithValue("@telephone", item.telephone);
+                qExe.ExecuteNonQuery();
+                long returnid = qExe.LastInsertedId;
+                conn.CloseConnection();
+                return Ok(returnid.ToString());
+            }
+            else
+            {
+                return BadRequest("Database connect fail!");
+            }
+        }
+        [Route("EditMemberData")]
+        [HttpPost]
+        public IHttpActionResult EditMemberData([FromBody] MemberData item)
+        {
+            DBConnector.DBConnector conn = new DBConnector.DBConnector();
+            string SQLString;
+            if (conn.OpenConnection())
+            {
+                SQLString = @"UPDATE memberdata SET memberrunno = @memberrunno, memberid = @memberid, membername = @membername,
+                              positionno = @positionno, housenumber = @housenumber, soi = @soi, road = @road, moo = @moo,
+                              building = @building, tambon = @tambon, amphur = @amphur, province = @province, zipcode = @zipcode,
+                              telephone = @telephone WHERE memberrunno = @memberrunno";
+                MySqlCommand qExe = new MySqlCommand
+                {
+                    Connection = conn.connection,
+                    CommandText = SQLString
+                };
+                qExe.Parameters.AddWithValue("@memberrunno", item.memberrunno);
+                qExe.Parameters.AddWithValue("@memberid", item.memberid);
+                qExe.Parameters.AddWithValue("@membername", item.membername);
+                qExe.Parameters.AddWithValue("@positionno", item.positionno);
+                qExe.Parameters.AddWithValue("@housenumber", item.housenumber);
+                qExe.Parameters.AddWithValue("@soi", item.soi);
+                qExe.Parameters.AddWithValue("@road", item.road);
+                qExe.Parameters.AddWithValue("@moo", item.moo);
+                qExe.Parameters.AddWithValue("@building", item.building);
+                qExe.Parameters.AddWithValue("@tambon", item.tambon);
+                qExe.Parameters.AddWithValue("@amphur", item.amphur);
+                qExe.Parameters.AddWithValue("@province", item.province);
+                qExe.Parameters.AddWithValue("@zipcode", item.zipcode);
+                qExe.Parameters.AddWithValue("@telephone", item.telephone);
+                qExe.ExecuteNonQuery();                
+                conn.CloseConnection();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Database connect fail!");
+            }
+        }
+        [Route("DeleteMemberData")]
+        [HttpPost]
+        public IHttpActionResult DeleteMemberData([FromBody] MemberData item)
+        {
+            DBConnector.DBConnector conn = new DBConnector.DBConnector();
+            string SQLString;
+            if (conn.OpenConnection())
+            {
+                SQLString = @"DELETE FROM memberdata WHERE memberrunno = @memberrunno";
+                MySqlCommand qExe = new MySqlCommand
+                {
+                    Connection = conn.connection,
+                    CommandText = SQLString
+                };
+                qExe.Parameters.AddWithValue("@memberrunno", item.memberrunno);                
+                qExe.ExecuteNonQuery();
+                conn.CloseConnection();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Database connect fail!");
+            }
+        }
         public string ThaiBaht(string txt)
         {
             string bahtTxt, n, bahtTH = "";
