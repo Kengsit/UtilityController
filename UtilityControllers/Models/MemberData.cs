@@ -11,6 +11,7 @@ namespace UtilityControllers.Models
         public string memberid { get; set; }
         public string membername { get; set; }
         public int positionno { get; set; }
+        public string positionname { get; set; }
         public string housenumber { get; set; }
         public string soi { get; set; }
         public string road { get; set; }

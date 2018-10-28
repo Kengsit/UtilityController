@@ -208,12 +208,12 @@ namespace UtilityControllers
         [Route("AddMasterData")]
         [HttpPost]
         public IHttpActionResult AddMasterData([FromBody] MasterData item)
-        {            
+        {
             DBConnector.DBConnector conn = new DBConnector.DBConnector();
             string SQLString;
             if (conn.OpenConnection())
             {
-                SQLString =@"INSERT INTO masterdata (partyname, housenumber, soi, road, moo, building, tambon, amphur, province, zipcode, telephone)
+                SQLString = @"INSERT INTO masterdata (partyname, housenumber, soi, road, moo, building, tambon, amphur, province, zipcode, telephone)
                               VALUES (@partyname, @housenumber, @soi, @road, @moo, @building, @tambon, @amphur, @province, @zipcode, @telephone)";
                 MySqlCommand qExe = new MySqlCommand
                 {
@@ -230,7 +230,7 @@ namespace UtilityControllers
                 qExe.Parameters.AddWithValue("@amphur", item.amphur);
                 qExe.Parameters.AddWithValue("@province", item.province);
                 qExe.Parameters.AddWithValue("@zipcode", item.zipcode);
-                qExe.Parameters.AddWithValue("@telephone", item.telephone);                
+                qExe.Parameters.AddWithValue("@telephone", item.telephone);
                 qExe.ExecuteNonQuery();
                 return Ok();
             }
@@ -346,7 +346,7 @@ namespace UtilityControllers
                 qExe.Parameters.AddWithValue("@province", item.province);
                 qExe.Parameters.AddWithValue("@zipcode", item.zipcode);
                 qExe.Parameters.AddWithValue("@telephone", item.telephone);
-                qExe.ExecuteNonQuery();                
+                qExe.ExecuteNonQuery();
                 conn.CloseConnection();
                 return Ok();
             }
@@ -369,7 +369,7 @@ namespace UtilityControllers
                     Connection = conn.connection,
                     CommandText = SQLString
                 };
-                qExe.Parameters.AddWithValue("@memberrunno", item.memberrunno);                
+                qExe.Parameters.AddWithValue("@memberrunno", item.memberrunno);
                 qExe.ExecuteNonQuery();
                 conn.CloseConnection();
                 return Ok();
@@ -379,6 +379,53 @@ namespace UtilityControllers
                 return BadRequest("Database connect fail!");
             }
         }
+
+        [Route("ListAllMember")]
+        [HttpGet]
+        public IHttpActionResult ListAllMember()
+        {
+            List<MemberData> result = new List<MemberData>();
+            DBConnector.DBConnector conn = new DBConnector.DBConnector();
+            string SQLString;
+            if (conn.OpenConnection())
+            {
+                SQLString = @"SELECT t1.*, t2.positionname FROM memberdata t1 left join partyposition t2 on t1.positionno = t2.positionno order by memberid";
+                MySqlCommand qExe = new MySqlCommand
+                {
+                    Connection = conn.connection,
+                    CommandText = SQLString
+                };
+                MySqlDataReader dataReader = qExe.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    MemberData detail = new MemberData();
+                    detail.memberrunno = int.Parse(dataReader["memberrunno"].ToString());
+                    detail.memberid = dataReader["memberid"].ToString();
+                    detail.membername = dataReader["membername"].ToString();
+                    detail.positionno = int.Parse(dataReader["positionno"].ToString());
+                    detail.positionname = dataReader["positionname"].ToString();
+                    detail.housenumber = dataReader["housenumber"].ToString();
+                    detail.soi = dataReader["soi"].ToString();
+                    detail.road = dataReader["road"].ToString();
+                    detail.moo = dataReader["moo"].ToString();
+                    detail.building = dataReader["building"].ToString();
+                    detail.tambon = dataReader["tambon"].ToString();
+                    detail.amphur = dataReader["amphur"].ToString();
+                    detail.province = dataReader["province"].ToString();
+                    detail.zipcode = dataReader["zipcode"].ToString();
+                    detail.telephone = dataReader["telephone"].ToString();
+                    result.Add(detail);
+                }
+                dataReader.Close();
+                dataReader.Dispose();
+                return Json(result);
+            }
+            else
+            {
+                return BadRequest("Database connect fail!");
+            }
+        }
+
         public string ThaiBaht(string txt)
         {
             string bahtTxt, n, bahtTH = "";

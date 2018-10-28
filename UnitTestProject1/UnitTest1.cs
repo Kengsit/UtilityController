@@ -75,5 +75,13 @@ namespace UnitTestProject1
             Assert.IsNotNull(result);
         }
 
+        [TestMethod]
+        public void ดึงข้อมูลMemberทั้งหมด()
+        {
+            UtilityController service = new UtilityController();
+            var result = service.ListAllMember();
+            Assert.IsNotNull(result);
+        }
+
     }
 }
