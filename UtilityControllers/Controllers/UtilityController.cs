@@ -425,6 +425,52 @@ namespace UtilityControllers
                 return BadRequest("Database connect fail!");
             }
         }
+        [Route("GetMemberData/{id}")]
+        [HttpGet]
+        public IHttpActionResult GetMemberData(string id)
+        {
+            MemberData result = new MemberData();
+            DBConnector.DBConnector conn = new DBConnector.DBConnector();
+            string SQLString;
+            if (conn.OpenConnection())
+            {
+                SQLString = @"SELECT t1.*, t2.positionname 
+                              FROM memberdata t1 left join partyposition t2 on t1.positionno = t2.positionno 
+                              where memberrunno = '" + id + @"'
+                              order by memberid";
+                MySqlCommand qExe = new MySqlCommand
+                {
+                    Connection = conn.connection,
+                    CommandText = SQLString
+                };                
+                MySqlDataReader dataReader = qExe.ExecuteReader();                
+                while (dataReader.Read())
+                {                    
+                    result.memberrunno = int.Parse(dataReader["memberrunno"].ToString());
+                    result.memberid = dataReader["memberid"].ToString();
+                    result.membername = dataReader["membername"].ToString();
+                    result.positionno = int.Parse(dataReader["positionno"].ToString());
+                    result.positionname = dataReader["positionname"].ToString();
+                    result.housenumber = dataReader["housenumber"].ToString();
+                    result.soi = dataReader["soi"].ToString();
+                    result.road = dataReader["road"].ToString();
+                    result.moo = dataReader["moo"].ToString();
+                    result.building = dataReader["building"].ToString();
+                    result.tambon = dataReader["tambon"].ToString();
+                    result.amphur = dataReader["amphur"].ToString();
+                    result.province = dataReader["province"].ToString();
+                    result.zipcode = dataReader["zipcode"].ToString();
+                    result.telephone = dataReader["telephone"].ToString();
+                }
+                dataReader.Close();
+                dataReader.Dispose();
+                return Json(result);
+            }
+            else
+            {
+                return BadRequest("Database connect fail!");
+            }
+        }
 
         public string ThaiBaht(string txt)
         {
@@ -483,6 +529,22 @@ namespace UtilityControllers
                 }
             }
             return bahtTH;
+        }
+
+        public string NumberGen(string rnKey)
+        {
+            DBConnector.DBConnector conn = new DBConnector.DBConnector();
+            MySqlCommand qExe = new MySqlCommand
+            {
+                Connection = conn.connection,
+                CommandText = "select * from sy_runnumber where rn_key = '" + rnKey + "'"
+            };
+
+            string result = "";
+            string format = "99999";
+            int runnumber = 1;
+            result = runnumber.ToString("00000");
+            return result;
         }
     }
 }

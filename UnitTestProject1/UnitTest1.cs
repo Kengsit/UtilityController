@@ -76,12 +76,21 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
-        public void ดึงข้อมูลMemberทั้งหมด()
+        public void ทดสอบดึงข้อมูลสมาชิกพรรคในแต่ละแบบ()
         {
             UtilityController service = new UtilityController();
             var result = service.ListAllMember();
-            Assert.IsNotNull(result);
+            Assert.IsNotNull(result);            
+            var result2 = service.GetMemberData("3");
+            Assert.IsNotNull(result2);
         }
-
+        
+        [TestMethod]
+        public void ทดสอบGenเลขที่เอกสาร()
+        {
+            UtilityController service = new UtilityController();
+            string result = service.NumberGen("donate");
+            Assert.IsTrue(result != "");
+        }
     }
 }
