@@ -355,9 +355,9 @@ namespace UtilityControllers
                 return BadRequest("Database connect fail!");
             }
         }
-        [Route("DeleteMemberData")]
+        [Route("DeleteMemberData/{id}")]
         [HttpPost]
-        public IHttpActionResult DeleteMemberData([FromBody] MemberData item)
+        public IHttpActionResult DeleteMemberData(string id)
         {
             DBConnector.DBConnector conn = new DBConnector.DBConnector();
             string SQLString;
@@ -369,7 +369,7 @@ namespace UtilityControllers
                     Connection = conn.connection,
                     CommandText = SQLString
                 };
-                qExe.Parameters.AddWithValue("@memberrunno", item.memberrunno);
+                qExe.Parameters.AddWithValue("@memberrunno", id);
                 qExe.ExecuteNonQuery();
                 conn.CloseConnection();
                 return Ok();

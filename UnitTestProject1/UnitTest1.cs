@@ -69,9 +69,7 @@ namespace UnitTestProject1
         public void ทดสอบลบข้อมูล()
         {
             UtilityController service = new UtilityController();
-            MemberData item = new MemberData();
-            item.memberrunno = 2;
-            var result = service.DeleteMemberData(item);
+            var result = service.DeleteMemberData("3");
             Assert.IsNotNull(result);
         }
 
@@ -80,11 +78,11 @@ namespace UnitTestProject1
         {
             UtilityController service = new UtilityController();
             var result = service.ListAllMember();
-            Assert.IsNotNull(result);            
+            Assert.IsNotNull(result);
             var result2 = service.GetMemberData("3");
             Assert.IsNotNull(result2);
         }
-        
+
         [TestMethod]
         public void ทดสอบGenเลขที่เอกสาร()
         {
