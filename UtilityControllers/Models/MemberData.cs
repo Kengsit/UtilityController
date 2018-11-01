@@ -7,20 +7,23 @@ namespace UtilityControllers.Models
 {
     public class MemberData
     {
-        public int memberrunno { get; set; }
-        public string memberid { get; set; }
-        public string membername { get; set; }
-        public int positionno { get; set; }
-        public string positionname { get; set; }
-        public string housenumber { get; set; }
-        public string soi { get; set; }
-        public string road { get; set; }
-        public string moo { get; set; }
-        public string building { get; set; }
-        public string tambon { get; set; }
-        public string amphur { get; set; }
-        public string province { get; set; }
-        public string zipcode { get; set; }
-        public string telephone { get; set; }
+        public int MemberRunno { get; set; }
+        public string MemberId { get; set; }
+        public string MemberPreName { get; set; }
+        public string MemberName { get; set; }
+        public string MemberSurname { get; set; }
+        public int PositionNo { get; set; }
+        public string PositionName { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public string HouseNumber { get; set; }
+        public string Soi { get; set; }
+        public string Road { get; set; }
+        public string Moo { get; set; }
+        public string Building { get; set; }
+        public string Tambon { get; set; }
+        public string Amphur { get; set; }
+        public string Province { get; set; }
+        public string ZipCode { get; set; }
+        public string Telephone { get; set; }
     }
 }
