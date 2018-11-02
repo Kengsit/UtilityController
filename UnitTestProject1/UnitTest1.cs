@@ -40,9 +40,11 @@ namespace UnitTestProject1
         {
             UtilityController service = new UtilityController();
             MemberData item = new MemberData();
-            item.memberid = "18-0001";
-            item.membername = "นายซื่อสัตย์ สุจริต";
-            item.positionno = 2;
+            item.MemberId = "18-0001";
+            item.MemberPreName = "นาย";
+            item.MemberName = "ซื่อสัตย์";
+            item.MemberSurname = "สุจริต";
+            item.PositionNo = 2;
             var result = service.AddMemberData(item);
             Assert.IsNotNull(result);
         }
@@ -51,16 +53,18 @@ namespace UnitTestProject1
         {
             UtilityController service = new UtilityController();
             MemberData item = new MemberData();
-            item.memberrunno = 1;
-            item.memberid = "18-0001";
-            item.membername = "นายซื่อสัตย์ สุจริต";
-            item.positionno = 2;
-            item.housenumber = "abc";
-            item.soi = "soi soi";
-            item.moo = "5";
-            item.building = "ตึก";
-            item.road = "ถนน";
-            item.zipcode = "10400";
+            item.MemberRunno = 1;
+            item.MemberId = "18-0001";
+            item.MemberPreName = "นาย";
+            item.MemberName = "คิดดี";
+            item.MemberSurname = "ทำดี";
+            item.PositionNo = 2;
+            item.HouseNumber = "abc";
+            item.Soi = "soi soi";
+            item.Moo = "5";
+            item.Building = "ตึก";
+            item.Road = "ถนน";
+            item.ZipCode = "10400";
             var result = service.EditMemberData(item);
             Assert.IsNotNull(result);
         }
@@ -69,7 +73,7 @@ namespace UnitTestProject1
         public void ทดสอบลบข้อมูล()
         {
             UtilityController service = new UtilityController();
-            var result = service.DeleteMemberData("3");
+            var result = service.DeleteMemberData("2");
             Assert.IsNotNull(result);
         }
 
@@ -79,7 +83,7 @@ namespace UnitTestProject1
             UtilityController service = new UtilityController();
             var result = service.ListAllMember();
             Assert.IsNotNull(result);
-            var result2 = service.GetMemberData("3");
+            var result2 = service.GetMemberData("1");
             Assert.IsNotNull(result2);
         }
 

@@ -157,9 +157,9 @@ namespace UtilityControllers
                 while (dataReader.Read())
                 {
                     partyposition detail = new partyposition();
-                    detail.positionrunno = int.Parse(dataReader["positionrunno"].ToString());
-                    detail.positionno = int.Parse(dataReader["positionno"].ToString());
-                    detail.positionname = dataReader["positionname"].ToString();
+                    detail.PositionRunno = int.Parse(dataReader["PositionRunno"].ToString());
+                    detail.PositionNo = int.Parse(dataReader["PositionNo"].ToString());
+                    detail.PositionName = dataReader["PositionName"].ToString();
                     result.Add(detail);
                 }
                 return Json(result);
@@ -283,32 +283,34 @@ namespace UtilityControllers
             string SQLString;
             if (conn.OpenConnection())
             {
-                SQLString = @"INSERT INTO memberdata (memberid, membername, positionno,
-                              housenumber, soi, road, moo, building, tambon, amphur, province, zipcode, telephone, 
-                              memberprename, membersurname)
-                              VALUES (@memberid, @membername, @positionno, @housenumber, @soi,
-                              @road, @moo, @building, @tambon, @amphur, @province, @zipcode, @telephone,
-                              @memberprename, @membersurname)";
+                SQLString = @"INSERT INTO memberdata
+                              (MemberId, MemberPreName, MemberName, MemberSurname, PositionNo,
+                              BirthDate, HouseNumber, Soi, Road, Moo, Building, Tambon, Amphur,
+                              Province, ZipCode, Telephone)
+                              VALUES (@MemberId, @MemberPreName, @MemberName,
+                              @MemberSurname, @PositionNo, @BirthDate, @HouseNumber, @Soi,
+                              @Road, @Moo, @Building, @Tambon, @Amphur, @Province, @ZipCode, @Telephone)";
                 MySqlCommand qExe = new MySqlCommand
                 {
                     Connection = conn.connection,
                     CommandText = SQLString
                 };
-                qExe.Parameters.AddWithValue("@memberid", item.memberid);
-                qExe.Parameters.AddWithValue("@memberprename", item.memberprename);
-                qExe.Parameters.AddWithValue("@membername", item.membername);
-                qExe.Parameters.AddWithValue("@membersurname", item.membersurname);
-                qExe.Parameters.AddWithValue("@positionno", item.positionno);
-                qExe.Parameters.AddWithValue("@housenumber", item.housenumber);
-                qExe.Parameters.AddWithValue("@soi", item.soi);
-                qExe.Parameters.AddWithValue("@road", item.road);
-                qExe.Parameters.AddWithValue("@moo", item.moo);
-                qExe.Parameters.AddWithValue("@building", item.building);
-                qExe.Parameters.AddWithValue("@tambon", item.tambon);
-                qExe.Parameters.AddWithValue("@amphur", item.amphur);
-                qExe.Parameters.AddWithValue("@province", item.province);
-                qExe.Parameters.AddWithValue("@zipcode", item.zipcode);
-                qExe.Parameters.AddWithValue("@telephone", item.telephone);
+                qExe.Parameters.AddWithValue("@MemberId", item.MemberId);
+                qExe.Parameters.AddWithValue("@MemberPreName", item.MemberPreName);
+                qExe.Parameters.AddWithValue("@MemberName", item.MemberName);
+                qExe.Parameters.AddWithValue("@MemberSurname", item.MemberSurname);
+                qExe.Parameters.AddWithValue("@PositionNo", item.PositionNo);
+                qExe.Parameters.AddWithValue("@BirthDate", item.BirthDate);
+                qExe.Parameters.AddWithValue("@HouseNumber", item.HouseNumber);
+                qExe.Parameters.AddWithValue("@Soi", item.Soi);
+                qExe.Parameters.AddWithValue("@Road", item.Road);
+                qExe.Parameters.AddWithValue("@Moo", item.Moo);
+                qExe.Parameters.AddWithValue("@Building", item.Building);
+                qExe.Parameters.AddWithValue("@Tambon", item.Tambon);
+                qExe.Parameters.AddWithValue("@Amphur", item.Amphur);
+                qExe.Parameters.AddWithValue("@Province", item.Province);
+                qExe.Parameters.AddWithValue("@ZipCode", item.ZipCode);
+                qExe.Parameters.AddWithValue("@Telephone", item.Telephone);
                 qExe.ExecuteNonQuery();
                 long returnid = qExe.LastInsertedId;
                 conn.CloseConnection();
@@ -327,32 +329,32 @@ namespace UtilityControllers
             string SQLString;
             if (conn.OpenConnection())
             {
-                SQLString = @"UPDATE memberdata SET memberrunno = @memberrunno, memberid = @memberid, membername = @membername,
-                              positionno = @positionno, housenumber = @housenumber, soi = @soi, road = @road, moo = @moo,
-                              building = @building, tambon = @tambon, amphur = @amphur, province = @province, zipcode = @zipcode,
-                              telephone = @telephone, memberprename = @memberprename, membersurname = @membersurname
-                              WHERE memberrunno = @memberrunno";
+                SQLString = @"UPDATE memberdata SET MemberId = @MemberId, MemberPreName = @MemberPreName,
+                              MemberName = @MemberName, MemberSurname = @MemberSurname, PositionNo = @PositionNo, BirthDate = @BirthDate,
+                              HouseNumber = @HouseNumber, Soi = @Soi, Road = @Road, Moo = @Moo, Building = @Building, Tambon = @Tambon,
+                              Amphur = @Amphur, Province = @Province, ZipCode = @ZipCode, Telephone = @Telephone WHERE MemberRunno = @MemberRunno";
                 MySqlCommand qExe = new MySqlCommand
                 {
                     Connection = conn.connection,
                     CommandText = SQLString
                 };
-                qExe.Parameters.AddWithValue("@memberrunno", item.memberrunno);
-                qExe.Parameters.AddWithValue("@memberid", item.memberid);
-                qExe.Parameters.AddWithValue("@memberprename", item.memberprename);
-                qExe.Parameters.AddWithValue("@membername", item.membername);
-                qExe.Parameters.AddWithValue("@membersurname", item.membersurname);
-                qExe.Parameters.AddWithValue("@positionno", item.positionno);
-                qExe.Parameters.AddWithValue("@housenumber", item.housenumber);
-                qExe.Parameters.AddWithValue("@soi", item.soi);
-                qExe.Parameters.AddWithValue("@road", item.road);
-                qExe.Parameters.AddWithValue("@moo", item.moo);
-                qExe.Parameters.AddWithValue("@building", item.building);
-                qExe.Parameters.AddWithValue("@tambon", item.tambon);
-                qExe.Parameters.AddWithValue("@amphur", item.amphur);
-                qExe.Parameters.AddWithValue("@province", item.province);
-                qExe.Parameters.AddWithValue("@zipcode", item.zipcode);
-                qExe.Parameters.AddWithValue("@telephone", item.telephone);
+                qExe.Parameters.AddWithValue("@MemberRunno", item.MemberRunno);
+                qExe.Parameters.AddWithValue("@MemberId", item.MemberId);
+                qExe.Parameters.AddWithValue("@MemberPreName", item.MemberPreName);
+                qExe.Parameters.AddWithValue("@MemberName", item.MemberName);
+                qExe.Parameters.AddWithValue("@MemberSurname", item.MemberSurname);
+                qExe.Parameters.AddWithValue("@PositionNo", item.PositionNo);
+                qExe.Parameters.AddWithValue("@BirthDate", item.BirthDate);
+                qExe.Parameters.AddWithValue("@HouseNumber", item.HouseNumber);
+                qExe.Parameters.AddWithValue("@Soi", item.Soi);
+                qExe.Parameters.AddWithValue("@Road", item.Road);
+                qExe.Parameters.AddWithValue("@Moo", item.Moo);
+                qExe.Parameters.AddWithValue("@Building", item.Building);
+                qExe.Parameters.AddWithValue("@Tambon", item.Tambon);
+                qExe.Parameters.AddWithValue("@Amphur", item.Amphur);
+                qExe.Parameters.AddWithValue("@Province", item.Province);
+                qExe.Parameters.AddWithValue("@ZipCode", item.ZipCode);
+                qExe.Parameters.AddWithValue("@Telephone", item.Telephone);
                 qExe.ExecuteNonQuery();
                 conn.CloseConnection();
                 return Ok();
@@ -370,13 +372,13 @@ namespace UtilityControllers
             string SQLString;
             if (conn.OpenConnection())
             {
-                SQLString = @"DELETE FROM memberdata WHERE memberrunno = @memberrunno";
+                SQLString = @"DELETE FROM memberdata WHERE MemberRunno = @MemberRunno";
                 MySqlCommand qExe = new MySqlCommand
                 {
                     Connection = conn.connection,
                     CommandText = SQLString
                 };
-                qExe.Parameters.AddWithValue("@memberrunno", id);
+                qExe.Parameters.AddWithValue("@MemberRunno", id);
                 qExe.ExecuteNonQuery();
                 conn.CloseConnection();
                 return Ok();
@@ -396,7 +398,7 @@ namespace UtilityControllers
             string SQLString;
             if (conn.OpenConnection())
             {
-                SQLString = @"SELECT t1.*, t2.positionname FROM memberdata t1 left join partyposition t2 on t1.positionno = t2.positionno order by memberid";
+                SQLString = @"SELECT t1.*, t2.PositionName FROM memberdata t1 left join partyposition t2 on t1.PositionNo = t2.PositionNo order by MemberId";
                 MySqlCommand qExe = new MySqlCommand
                 {
                     Connection = conn.connection,
@@ -406,23 +408,23 @@ namespace UtilityControllers
                 while (dataReader.Read())
                 {
                     MemberData detail = new MemberData();
-                    detail.memberrunno = int.Parse(dataReader["memberrunno"].ToString());
-                    detail.memberid = dataReader["memberid"].ToString();
-                    detail.memberprename = dataReader["memberprename"].ToString();
-                    detail.membername = dataReader["membername"].ToString();
-                    detail.membersurname = dataReader["membersurname"].ToString();
-                    detail.positionno = int.Parse(dataReader["positionno"].ToString());
-                    detail.positionname = dataReader["positionname"].ToString();
-                    detail.housenumber = dataReader["housenumber"].ToString();
-                    detail.soi = dataReader["soi"].ToString();
-                    detail.road = dataReader["road"].ToString();
-                    detail.moo = dataReader["moo"].ToString();
-                    detail.building = dataReader["building"].ToString();
-                    detail.tambon = dataReader["tambon"].ToString();
-                    detail.amphur = dataReader["amphur"].ToString();
-                    detail.province = dataReader["province"].ToString();
-                    detail.zipcode = dataReader["zipcode"].ToString();
-                    detail.telephone = dataReader["telephone"].ToString();
+                    detail.MemberRunno = int.Parse(dataReader["MemberRunno"].ToString());
+                    detail.MemberId = dataReader["MemberId"].ToString();
+                    detail.MemberPreName = dataReader["MemberPreName"].ToString();
+                    detail.MemberName = dataReader["MemberName"].ToString();
+                    detail.MemberSurname = dataReader["MemberSurname"].ToString();
+                    detail.PositionNo = int.Parse(dataReader["PositionNo"].ToString());
+                    detail.PositionName = dataReader["PositionName"].ToString();
+                    detail.HouseNumber = dataReader["HouseNumber"].ToString();
+                    detail.Soi = dataReader["Soi"].ToString();
+                    detail.Road = dataReader["Road"].ToString();
+                    detail.Moo = dataReader["Moo"].ToString();
+                    detail.Building = dataReader["Building"].ToString();
+                    detail.Tambon = dataReader["Tambon"].ToString();
+                    detail.Amphur = dataReader["Amphur"].ToString();
+                    detail.Province = dataReader["Province"].ToString();
+                    detail.ZipCode = dataReader["ZipCode"].ToString();
+                    detail.Telephone = dataReader["Telephone"].ToString();
                     result.Add(detail);
                 }
                 dataReader.Close();
@@ -443,10 +445,10 @@ namespace UtilityControllers
             string SQLString;
             if (conn.OpenConnection())
             {
-                SQLString = @"SELECT t1.*, t2.positionname 
-                              FROM memberdata t1 left join partyposition t2 on t1.positionno = t2.positionno 
-                              where memberrunno = '" + id + @"'
-                              order by memberid";
+                SQLString = @"SELECT t1.*, t2.PositionName 
+                              FROM memberdata t1 left join partyposition t2 on t1.PositionNo = t2.PositionNo
+                              where MemberRunno = '" + id + @"'
+                              order by MemberId";
                 MySqlCommand qExe = new MySqlCommand
                 {
                     Connection = conn.connection,
@@ -455,23 +457,23 @@ namespace UtilityControllers
                 MySqlDataReader dataReader = qExe.ExecuteReader();
                 while (dataReader.Read())
                 {
-                    result.memberrunno = int.Parse(dataReader["memberrunno"].ToString());
-                    result.memberid = dataReader["memberid"].ToString();
-                    result.memberprename = dataReader["memberprename"].ToString();
-                    result.membername = dataReader["membername"].ToString();
-                    result.membersurname = dataReader["membersurname"].ToString();
-                    result.positionno = int.Parse(dataReader["positionno"].ToString());
-                    result.positionname = dataReader["positionname"].ToString();
-                    result.housenumber = dataReader["housenumber"].ToString();
-                    result.soi = dataReader["soi"].ToString();
-                    result.road = dataReader["road"].ToString();
-                    result.moo = dataReader["moo"].ToString();
-                    result.building = dataReader["building"].ToString();
-                    result.tambon = dataReader["tambon"].ToString();
-                    result.amphur = dataReader["amphur"].ToString();
-                    result.province = dataReader["province"].ToString();
-                    result.zipcode = dataReader["zipcode"].ToString();
-                    result.telephone = dataReader["telephone"].ToString();
+                    result.MemberRunno = int.Parse(dataReader["MemberRunno"].ToString());
+                    result.MemberId = dataReader["MemberId"].ToString();
+                    result.MemberPreName = dataReader["MemberPreName"].ToString();
+                    result.MemberName = dataReader["MemberName"].ToString();
+                    result.MemberSurname = dataReader["MemberSurname"].ToString();
+                    result.PositionNo = int.Parse(dataReader["PositionNo"].ToString());
+                    result.PositionName = dataReader["PositionName"].ToString();
+                    result.HouseNumber = dataReader["HouseNumber"].ToString();
+                    result.Soi = dataReader["Soi"].ToString();
+                    result.Road = dataReader["Road"].ToString();
+                    result.Moo = dataReader["Moo"].ToString();
+                    result.Building = dataReader["Building"].ToString();
+                    result.Tambon = dataReader["Tambon"].ToString();
+                    result.Amphur = dataReader["Amphur"].ToString();
+                    result.Province = dataReader["Province"].ToString();
+                    result.ZipCode = dataReader["ZipCode"].ToString();
+                    result.Telephone = dataReader["Telephone"].ToString();
                 }
                 dataReader.Close();
                 dataReader.Dispose();
@@ -491,35 +493,33 @@ namespace UtilityControllers
             string SQLString;
             if (conn.OpenConnection())
             {
-                SQLString = @"INSERT INTO donatordata (donatorid, donatorprename, donatorname, donatorsurname, donatorcenid,
-                              donatorregisterno, donatortaxid, housenumber, soi, road, moo, building, tambon,
-                              amphur, province, zipcode, telephone, last_update) 
-                              VALUES (@donatorrunno, @donatorid, @donatorprename, @donatorname, @donatorsurname,
-                              @donatorcenid, @donatorregisterno, @donatortaxid, @housenumber, @soi,
-                              @road, @moo, @building, @tambon, @amphur, @province, @zipcode,
-                              @telephone ) ";
+                SQLString = @"INSERT INTO donatordata (DonatorId, DonatorPreName, DonatorName, DonatorSurName,
+                              DonatorCitizenId, DonatorRegisterNo, DonatorTaxId, HouseNumber, Soi, Road, Road, Building, Tambon,
+                              Amphur, Province, ZipCode, Telephone) VALUES (@DonatorId, @DonatorPreName,
+                              @DonatorName, @DonatorSurName, @DonatorCitizenId, @DonatorRegisterNo, @DonatorTaxId, @HouseNumber,
+                              @Soi, @Road, @Moo, @Building, @Tambon, @Amphur, @Province, @ZipCode, @Telephone)";
                 MySqlCommand qExe = new MySqlCommand
                 {
                     Connection = conn.connection,
                     CommandText = SQLString
                 };
-                qExe.Parameters.AddWithValue("@donatorid", item.donatorid);
-                qExe.Parameters.AddWithValue("@donatorprename", item.donatorprename);
-                qExe.Parameters.AddWithValue("@donatorname", item.donatorname);
-                qExe.Parameters.AddWithValue("@donatorsurname", item.donatorsurname);
-                qExe.Parameters.AddWithValue("@donatorcenid", item.donatorcenid);
-                qExe.Parameters.AddWithValue("@donatorregisterno", item.donatorregisterno);
-                qExe.Parameters.AddWithValue("@donatortaxid", item.donatortaxid);
-                qExe.Parameters.AddWithValue("@housenumber", item.housenumber);
-                qExe.Parameters.AddWithValue("@soi", item.soi);
-                qExe.Parameters.AddWithValue("@road", item.road);
-                qExe.Parameters.AddWithValue("@moo", item.moo);
-                qExe.Parameters.AddWithValue("@building", item.building);
-                qExe.Parameters.AddWithValue("@tambon", item.tambon);
-                qExe.Parameters.AddWithValue("@amphur", item.amphur);
-                qExe.Parameters.AddWithValue("@province", item.province);
-                qExe.Parameters.AddWithValue("@zipcode", item.zipcode);
-                qExe.Parameters.AddWithValue("@telephone", item.telephone);
+                qExe.Parameters.AddWithValue("@DonatorId", item.DonatorId);
+                qExe.Parameters.AddWithValue("@DonatorPreName", item.DonatorPreName);
+                qExe.Parameters.AddWithValue("@DonatorName", item.DonatorName);
+                qExe.Parameters.AddWithValue("@DonatorSurName", item.DonatorSurName);
+                qExe.Parameters.AddWithValue("@DonatorCitizenId", item.DonatorCitizenId);
+                qExe.Parameters.AddWithValue("@DonatorRegisterNo", item.DonatorRegisterNo);
+                qExe.Parameters.AddWithValue("@DonatorTaxId", item.DonatorTaxId);
+                qExe.Parameters.AddWithValue("@HouseNumber", item.HouseNumber);
+                qExe.Parameters.AddWithValue("@Soi", item.Soi);
+                qExe.Parameters.AddWithValue("@Road", item.Road);
+                qExe.Parameters.AddWithValue("@Moo", item.Moo);
+                qExe.Parameters.AddWithValue("@Building", item.Building);
+                qExe.Parameters.AddWithValue("@Tambon", item.Tambon);
+                qExe.Parameters.AddWithValue("@Amphur", item.Amphur);
+                qExe.Parameters.AddWithValue("@Province", item.Province);
+                qExe.Parameters.AddWithValue("@ZipCode", item.ZipCode);
+                qExe.Parameters.AddWithValue("@Telephone", item.Telephone);
                 qExe.ExecuteNonQuery();
                 long returnid = qExe.LastInsertedId;
                 conn.CloseConnection();
@@ -538,36 +538,34 @@ namespace UtilityControllers
             string SQLString;
             if (conn.OpenConnection())
             {
-
-
-                SQLString = @"UPDATE donatordata SET donatorrunno = @donatorrunno, donatorid = @donatorid, donatorprename = @donatorprename,
-                              donatorname = @donatorname, donatorsurname = @donatorsurname, donatorcenid = @donatorcenid,
-                              donatorregisterno = @donatorregisterno, donatortaxid = @donatortaxid, housenumber = @housenumber,
-                              soi = @soi, road = @road, moo = @moo, building = @building, tambon = @tambon, amphur = @amphur,
-                              province = @province, zipcode = @zipcode, telephone = @telephone WHERE donatorrunno = @donatorrunno ";
+                SQLString = @"UPDATE donatordata SET DonatorRunno = @DonatorRunno, DonatorId = @DonatorId, DonatorPreName = @DonatorPreName,
+                              DonatorName = @DonatorName, DonatorSurName = @DonatorSurName, DonatorCitizenId = @DonatorCitizenId,
+                              DonatorRegisterNo = @DonatorRegisterNo, DonatorTaxId = @DonatorTaxId, HouseNumber = @HouseNumber,
+                              Soi = @Soi, Road = @Road, Moo = @Moo, Building = @Building, Tambon = @Tambon, Amphur = @Amphur,
+                              Province = @Province, Zipcode = @Zipcode, Telephone = @Telephone WHERE DonatorRunno = @DonatorRunno ";
                 MySqlCommand qExe = new MySqlCommand
                 {
                     Connection = conn.connection,
                     CommandText = SQLString
                 };
-                qExe.Parameters.AddWithValue("@donatorrunno", item.donatorrunno);
-                qExe.Parameters.AddWithValue("@donatorid", item.donatorid);
-                qExe.Parameters.AddWithValue("@donatorprename", item.donatorprename);
-                qExe.Parameters.AddWithValue("@donatorname", item.donatorname);
-                qExe.Parameters.AddWithValue("@donatorsurname", item.donatorsurname);
-                qExe.Parameters.AddWithValue("@donatorcenid", item.donatorcenid);
-                qExe.Parameters.AddWithValue("@donatorregisterno", item.donatorregisterno);
-                qExe.Parameters.AddWithValue("@donatortaxid", item.donatortaxid);
-                qExe.Parameters.AddWithValue("@housenumber", item.housenumber);
-                qExe.Parameters.AddWithValue("@soi", item.soi);
-                qExe.Parameters.AddWithValue("@road", item.road);
-                qExe.Parameters.AddWithValue("@moo", item.moo);
-                qExe.Parameters.AddWithValue("@building", item.building);
-                qExe.Parameters.AddWithValue("@tambon", item.tambon);
-                qExe.Parameters.AddWithValue("@amphur", item.amphur);
-                qExe.Parameters.AddWithValue("@province", item.province);
-                qExe.Parameters.AddWithValue("@zipcode", item.zipcode);
-                qExe.Parameters.AddWithValue("@telephone", item.telephone);
+                qExe.Parameters.AddWithValue("@DonatorRunno", item.DonatorRunno);
+                qExe.Parameters.AddWithValue("@DonatorId", item.DonatorId);
+                qExe.Parameters.AddWithValue("@DonatorPreName", item.DonatorPreName);
+                qExe.Parameters.AddWithValue("@DonatorName", item.DonatorName);
+                qExe.Parameters.AddWithValue("@DonatorSurName", item.DonatorSurName);
+                qExe.Parameters.AddWithValue("@DonatorCitizenId", item.DonatorCitizenId);
+                qExe.Parameters.AddWithValue("@DonatorRegisterNo", item.DonatorRegisterNo);
+                qExe.Parameters.AddWithValue("@DonatorTaxId", item.DonatorTaxId);
+                qExe.Parameters.AddWithValue("@HouseNumber", item.HouseNumber);
+                qExe.Parameters.AddWithValue("@Soi", item.Soi);
+                qExe.Parameters.AddWithValue("@Road", item.Road);
+                qExe.Parameters.AddWithValue("@Moo", item.Moo);
+                qExe.Parameters.AddWithValue("@Building", item.Building);
+                qExe.Parameters.AddWithValue("@Tambon", item.Tambon);
+                qExe.Parameters.AddWithValue("@Amphur", item.Amphur);
+                qExe.Parameters.AddWithValue("@Province", item.Province);
+                qExe.Parameters.AddWithValue("@ZipCode", item.ZipCode);
+                qExe.Parameters.AddWithValue("@Telephone", item.Telephone);
                 qExe.ExecuteNonQuery();
                 conn.CloseConnection();
                 return Ok();
@@ -585,13 +583,13 @@ namespace UtilityControllers
             string SQLString;
             if (conn.OpenConnection())
             {
-                SQLString = @"DELETE FROM donatordata WHERE donatorrunno = @donatorrunno";
+                SQLString = @"DELETE FROM donatordata WHERE DonatorRunno = @DonatorRunno";
                 MySqlCommand qExe = new MySqlCommand
                 {
                     Connection = conn.connection,
                     CommandText = SQLString
                 };
-                qExe.Parameters.AddWithValue("@donatorrunno", id);
+                qExe.Parameters.AddWithValue("@DonatorRunno", id);
                 qExe.ExecuteNonQuery();
                 conn.CloseConnection();
                 return Ok();
@@ -611,7 +609,7 @@ namespace UtilityControllers
             string SQLString;
             if (conn.OpenConnection())
             {
-                SQLString = @"SELECT * FROM donatordata order by donatorid";
+                SQLString = @"SELECT * FROM donatordata order by DonatorId";
                 MySqlCommand qExe = new MySqlCommand
                 {
                     Connection = conn.connection,
@@ -621,24 +619,24 @@ namespace UtilityControllers
                 while (dataReader.Read())
                 {
                     DonatorData detail = new DonatorData();
-                    detail.donatorrunno = int.Parse(dataReader["donatorrunno"].ToString());
-                    detail.donatorid = dataReader["donatorid"].ToString();
-                    detail.donatorprename = dataReader["donatorprename"].ToString();
-                    detail.donatorname = dataReader["donatorname"].ToString();
-                    detail.donatorsurname = dataReader["donatorsurname"].ToString();
-                    detail.donatorcenid = dataReader["donatorcenid"].ToString();
-                    detail.donatorregisterno = dataReader["donatorregisterno"].ToString();
-                    detail.donatortaxid = dataReader["donatortaxid"].ToString();
-                    detail.housenumber = dataReader["housenumber"].ToString();
-                    detail.soi = dataReader["soi"].ToString();
-                    detail.road = dataReader["road"].ToString();
-                    detail.moo = dataReader["moo"].ToString();
-                    detail.building = dataReader["building"].ToString();
-                    detail.tambon = dataReader["tambon"].ToString();
-                    detail.amphur = dataReader["amphur"].ToString();
-                    detail.province = dataReader["province"].ToString();
-                    detail.zipcode = dataReader["zipcode"].ToString();
-                    detail.telephone = dataReader["telephone"].ToString();
+                    detail.DonatorRunno = int.Parse(dataReader["DonatorRunno"].ToString());
+                    detail.DonatorId = dataReader["DonatorId"].ToString();
+                    detail.DonatorPreName = dataReader["DonatorPreName"].ToString();
+                    detail.DonatorName = dataReader["DonatorName"].ToString();
+                    detail.DonatorSurName = dataReader["DonatorSurName"].ToString();
+                    detail.DonatorCitizenId = dataReader["DonatorCitizenId"].ToString();
+                    detail.DonatorRegisterNo = dataReader["DonatorRegisterNo"].ToString();
+                    detail.DonatorTaxId = dataReader["DonatorTaxId"].ToString();
+                    detail.HouseNumber = dataReader["HouseNumber"].ToString();
+                    detail.Soi = dataReader["Soi"].ToString();
+                    detail.Road = dataReader["Road"].ToString();
+                    detail.Moo = dataReader["Moo"].ToString();
+                    detail.Building = dataReader["Building"].ToString();
+                    detail.Tambon = dataReader["Tambon"].ToString();
+                    detail.Amphur = dataReader["Amphur"].ToString();
+                    detail.Province = dataReader["Province"].ToString();
+                    detail.ZipCode = dataReader["ZipCode"].ToString();
+                    detail.Telephone = dataReader["Telephone"].ToString();
                     result.Add(detail);
                 }
                 dataReader.Close();
@@ -659,10 +657,8 @@ namespace UtilityControllers
             string SQLString;
             if (conn.OpenConnection())
             {
-                SQLString = @"SELECT t1.*, t2.positionname 
-                              FROM Donatordata t1 left join partyposition t2 on t1.positionno = t2.positionno 
-                              where Donatorrunno = '" + id + @"'
-                              order by Donatorid";
+                SQLString = @"SELECT * FROM donatordata where DonatorRunno = '" + id + @"'
+                              order by DonatorId";
                 MySqlCommand qExe = new MySqlCommand
                 {
                     Connection = conn.connection,
@@ -671,24 +667,24 @@ namespace UtilityControllers
                 MySqlDataReader dataReader = qExe.ExecuteReader();
                 while (dataReader.Read())
                 {
-                    result.donatorrunno = int.Parse(dataReader["donatorrunno"].ToString());
-                    result.donatorid = dataReader["donatorid"].ToString();
-                    result.donatorprename = dataReader["donatorprename"].ToString();
-                    result.donatorname = dataReader["donatorname"].ToString();
-                    result.donatorsurname = dataReader["donatorsurname"].ToString();
-                    result.donatorcenid = dataReader["donatorcenid"].ToString();
-                    result.donatorregisterno = dataReader["donatorregisterno"].ToString();
-                    result.donatortaxid = dataReader["donatortaxid"].ToString();
-                    result.housenumber = dataReader["housenumber"].ToString();
-                    result.soi = dataReader["soi"].ToString();
-                    result.road = dataReader["road"].ToString();
-                    result.moo = dataReader["moo"].ToString();
-                    result.building = dataReader["building"].ToString();
-                    result.tambon = dataReader["tambon"].ToString();
-                    result.amphur = dataReader["amphur"].ToString();
-                    result.province = dataReader["province"].ToString();
-                    result.zipcode = dataReader["zipcode"].ToString();
-                    result.telephone = dataReader["telephone"].ToString();
+                    result.DonatorRunno = int.Parse(dataReader["DonatorRunno"].ToString());
+                    result.DonatorId = dataReader["DonatorId"].ToString();
+                    result.DonatorPreName = dataReader["DonatorPreName"].ToString();
+                    result.DonatorName = dataReader["DonatorName"].ToString();
+                    result.DonatorSurName = dataReader["DonatorSurName"].ToString();
+                    result.DonatorCitizenId = dataReader["DonatorCitizenId"].ToString();
+                    result.DonatorRegisterNo = dataReader["DonatorRegisterNo"].ToString();
+                    result.DonatorTaxId = dataReader["DonatorTaxId"].ToString();
+                    result.HouseNumber = dataReader["HouseNumber"].ToString();
+                    result.Soi = dataReader["Soi"].ToString();
+                    result.Road = dataReader["Road"].ToString();
+                    result.Moo = dataReader["Moo"].ToString();
+                    result.Building = dataReader["Building"].ToString();
+                    result.Tambon = dataReader["Tambon"].ToString();
+                    result.Amphur = dataReader["Amphur"].ToString();
+                    result.Province = dataReader["Province"].ToString();
+                    result.ZipCode = dataReader["ZipCode"].ToString();
+                    result.Telephone = dataReader["Telephone"].ToString();
                 }
                 dataReader.Close();
                 dataReader.Dispose();

@@ -7,8 +7,8 @@ namespace UtilityControllers.Models
 {
     public class partyposition
     {
-        public int positionrunno { get; set; }
-        public int positionno { get; set; }
-        public string positionname { get; set; }        
+        public int PositionRunno { get; set; }
+        public int PositionNo { get; set; }
+        public string PositionName { get; set; }        
     }
 }
