@@ -494,7 +494,7 @@ namespace UtilityControllers
             if (conn.OpenConnection())
             {
                 SQLString = @"INSERT INTO donatordata (DonatorId, DonatorPreName, DonatorName, DonatorSurName,
-                              DonatorCitizenId, DonatorRegisterNo, DonatorTaxId, HouseNumber, Soi, Road, Road, Building, Tambon,
+                              DonatorCitizenId, DonatorRegisterNo, DonatorTaxId, HouseNumber, Soi, Road, Moo, Building, Tambon,
                               Amphur, Province, ZipCode, Telephone) VALUES (@DonatorId, @DonatorPreName,
                               @DonatorName, @DonatorSurName, @DonatorCitizenId, @DonatorRegisterNo, @DonatorTaxId, @HouseNumber,
                               @Soi, @Road, @Moo, @Building, @Tambon, @Amphur, @Province, @ZipCode, @Telephone)";
