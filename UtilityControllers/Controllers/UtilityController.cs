@@ -5,11 +5,13 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using MySql.Data.MySqlClient;
 using UtilityControllers.Models;
 
 namespace UtilityControllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/UtilityData")]
     public class UtilityController : ApiController
     {
