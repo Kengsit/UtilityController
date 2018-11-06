@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using MySql.Data.MySqlClient;
@@ -486,7 +482,7 @@ namespace UtilityControllers
                 return BadRequest("Database connect fail!");
             }
         }
-
+        /*
         [Route("AddDonatorData")]
         [HttpPost]
         public IHttpActionResult AddDonatorData([FromBody] DonatorData item)
@@ -697,6 +693,7 @@ namespace UtilityControllers
                 return BadRequest("Database connect fail!");
             }
         }
+        */
         public string ThaiBaht(string txt)
         {
             string bahtTxt, n, bahtTH = "";
@@ -766,7 +763,7 @@ namespace UtilityControllers
             };
 
             string result = "";
-            string format = "99999";
+            // string format = "99999";
             int runnumber = 1;
             result = runnumber.ToString("00000");
             return result;

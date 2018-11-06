@@ -25,5 +25,8 @@ namespace UtilityControllers.Models
         public string Province { get; set; }
         public string ZipCode { get; set; }
         public string Telephone { get; set; }
+        public DateTime? DateBegin { get; set; }
+        public DateTime? DateEnd { get; set; }
+        public Double Amount { get; set; }
     }
 }
