@@ -272,7 +272,7 @@ namespace UtilityControllers
                 return BadRequest("Database connect fail!");
             }
         }
-
+        /*
         [Route("AddMemberData")]
         [HttpPost]
         public IHttpActionResult AddMemberData([FromBody] MemberData item)
@@ -482,6 +482,7 @@ namespace UtilityControllers
                 return BadRequest("Database connect fail!");
             }
         }
+        */
         /*
         [Route("AddDonatorData")]
         [HttpPost]
